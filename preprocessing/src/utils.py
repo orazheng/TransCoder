@@ -39,6 +39,7 @@ def bool_flag(s):
 def tokenize_json_helper(inpt):
     tokenizer, content, path, keep_comments = inpt
     content_tokenized = tokenizer(content, keep_comments)
+    print('content_tokenized!!!!',content_tokenized)
     return content_tokenized, path
 
 
@@ -70,8 +71,12 @@ def process_and_tokenize_json_file(input_path, language, keep_comments):
     paths = []
     for line in fileinput.input(str(input_path), openhook=fileinput.hook_compressed):
         x = json.loads(line)
+        print('tok!!!!!', language)
+        print('input!!!!!!',x)
         content = x['content']
+        print('content!!!!!',content)
         path = f"{x['repo_name']}/tree/master/{x['path']}"
+        print('path!!!!', path)
         docs.append((tokenizer, content, path, keep_comments))
 
     f_tok = open(output_path, 'w', encoding='utf-8')
